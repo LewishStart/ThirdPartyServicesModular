@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="com.services.modular">
+
+    <application
+        android:allowBackup="true"
+        android:icon="@mipmap/ic_launcher"
+        android:label="@string/app_name"
+        android:roundIcon="@mipmap/ic_launcher_round"
+        android:supportsRtl="true"
+        android:theme="@style/AppTheme">
+        <activity android:name="com.services.modular.MainActivity">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        <!--个推Service-->
+        <service
+            android:name="com.services.modular.push.GeTuiPushService"
+            android:exported="true"
+            android:label="PushService"
+            android:process=":pushservice" />
+        <!-- 用户自定义服务继承自GTIntentService,作为SDK与APP桥梁服务,用来接收各种消息和命令回复 -->
+        <service android:name="com.services.modular.push.PushIntentService" />
+    </application>
+
+</manifest>
