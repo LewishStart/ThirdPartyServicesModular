@@ -1,5 +1,5 @@
 apply plugin: 'com.android.application'
-
+apply from: rootProject.file('gradle/VasDolly.gradle')
 android {
     compileSdkVersion 26
     defaultConfig {
@@ -17,14 +17,51 @@ android {
                 GETUI_APP_SECRET: "JaggMsiC2e9ymQmls1YzX4"
         ]
     }
+    signingConfigs {
+        release {
+            keyAlias 'tait'
+            keyPassword 'lewish'
+            storeFile file('../tait.jks')
+            storePassword 'lewish'
+            v2SigningEnabled true
+        }
+    }
     buildTypes {
         release {
             minifyEnabled false
+            signingConfig signingConfigs.release
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
     }
 }
-
+//channel {
+//    //指定渠道文件
+//    channelFile = file("../channel.txt")
+//    //多渠道包的输出目录，默认为new File(project.buildDir,"channel")
+//    baseOutputDir = new File(project.buildDir, "channel")
+//    //多渠道包的命名规则，默认为：${appName}-${versionName}-${versionCode}-${flavorName}-${buildType}
+//    apkNameFormat = '${appName}-${versionName}-${versionCode}-${flavorName}-${buildType}'
+//    //快速模式：生成渠道包时不进行校验（速度可以提升10倍以上，默认为false）
+//    isFastMode = false
+//    //buildTime的时间格式，默认格式：yyyyMMdd-HHmmss
+//    buildTimeDateFormat = 'yyyyMMdd-HH:mm:ss'
+//    //低内存模式（仅针对V2签名，默认为false）：只把签名块、中央目录和EOCD读取到内存，不把最大头的内容块读取到内存，在手机上合成APK时，可以使用该模式
+//    lowMemory = false
+//}
+//rebuildChannel {
+//    //指定渠道文件
+//    channelFile = file("/Users/leon/Downloads/testReChannel.txt")
+//    baseDebugApk = 已有Debug APK
+//    baseReleaseApk = 已有Release APK
+//    //默认为new File(project.buildDir, "rebuildChannel/debug")
+//    debugOutputDir = Debug渠道包输出目录
+//    //默认为new File(project.buildDir, "rebuildChannel/release")
+//    releaseOutputDir = Release渠道包输出目录
+//    //快速模式：生成渠道包时不进行校验（速度可以提升10倍以上，默认为false）
+//    isFastMode = false
+//    //低内存模式（仅针对V2签名，默认为false）：只把签名块、中央目录和EOCD读取到内存，不把最大头的内容块读取到内存，在手机上合成APK时，可以使用该模式
+//    lowMemory = false
+//}
 dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
     compile 'com.getui:sdk:2.12.3.0'
